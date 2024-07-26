@@ -1,0 +1,57 @@
+---
+export const prerender = false;
+
+// layouts
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+//components
+import Hero from "@/components/projects/Hero.astro";
+import ProjectTile from "@/components/ui/ProjectTile.astro";
+import ContactForm from "@/components/ContactForm.astro";
+
+
+// astro tools
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+const projects = await getCollection("projects");
+const allTools = await getCollection("tools");
+
+---
+
+<BaseLayout title="katie Haus projects" description="some recent projects">
+	<div>
+	<Hero></Hero>
+	<div class="container">
+		<div class="filter-wrapper">
+			<div class="columns">
+				<p>filter by tools:</p>
+				<button class="btn badge relative" aria-pressed="true">
+					<span>Clear all</span>
+					<Icon name="icon--close" aria-hidden="true" size={18} class="close"></Icon>
+				</button>
+			</div>
+			<ul>
+				{
+					allTools.map((t)=>
+					<li><button class="btn badge relative" data-tool={t.id} aria-pressed="true">
+						<span>{t.data.title}</span>
+						<Icon name="icon--close" aria-hidden="true" size={18} class="close"></Icon>
+						</button></li>
+				)
+				}
+			</ul>
+		</div>
+		<div class="grid-wrapper">
+			{
+				projects.map(({data}) =>
+				<ProjectTile data={data}/>
+			
+			)
+			}
+		</div>
+	</div>		
+	</div>
+
+	<ContactForm></ContactForm>
+</BaseLayout>

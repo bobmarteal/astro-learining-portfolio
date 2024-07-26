@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+// assets
+import katie from "@/assets/avatar.jpg";
+import Heading from "./ui/Heading.astro";
+---
+
+<section aria-label="Contact form"class="relative">
+    <div data-pattern></div>
+    <div class="form-wrapper">
+        <Image
+            src={katie}
+            alt="katie"
+            class="headshot"
+            width="700"
+            format="avif"
+        />
+        <form action="" id="contact-form">
+            <Heading tagName="h2" size="h2">Let's connect</Heading>
+            <p>reach out for things</p>
+            <div class="input-wrapper">
+                <label for="name" id="name">First name</label>
+                <input type="text" id="name" placeholder="e.g. bob">
+            </div>
+            <div class="input-wrapper">
+                <label for="email" id="email">Emain</label>
+                <input type="email" id="email" name="email" placeholder="hi at email">
+            </div>
+            <button type="submit" class="btn primary">Conact me</button>
+        </form>
+    </div>
+</section>

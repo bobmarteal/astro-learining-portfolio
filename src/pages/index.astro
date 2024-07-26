@@ -1,0 +1,21 @@
+---
+import Hero from "@/components/home/hero.astro";
+import ProjectTile from "@/components/ui/ProjectTile.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FeaturesBanner from "@/components/home/FeaturesBanner.astro";
+import ProjectSection from "@/components/home/ProjectSection.astro";
+import ContactForm from "@/components/ContactForm.astro";
+
+
+// temp project
+// const project1 = await getEntry("projects", "custom-site-theming");
+// console.log(project1);
+---
+
+<BaseLayout description="fancy ass page">
+	<Hero></Hero>
+	<FeaturesBanner></FeaturesBanner>
+	<!-- <ProjectTile data={project1.data}></ProjectTile> -->
+	 <ProjectSection></ProjectSection>
+	<ContactForm></ContactForm>
+</BaseLayout>

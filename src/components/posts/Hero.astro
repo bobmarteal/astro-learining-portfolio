@@ -1,0 +1,25 @@
+---
+// Astro tools
+import { Image } from "astro:assets";
+
+// components
+import Heading from "../ui/Heading.astro";
+import Link from "../ui/Link.astro";
+
+// assets
+import katie from "@/assets/avatar.jpg";
+---
+<header aria-label="introduction to katie" class="hero-home">
+    <Image 
+        src={katie} 
+        alt="Katie Haus"
+        width={200}
+        class="avatar"
+    />
+    <Heading tagName="h1" size="h2">:-)These are my posts.</Heading>
+    <p>pnf</p>
+    <!-- <div>
+        <Link href="/" variant="secondary">Home</Link>
+        <Link href="projects">Projects</Link>
+    </div> -->
+</header>

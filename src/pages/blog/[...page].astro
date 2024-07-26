@@ -1,0 +1,77 @@
+---
+import type { GetStaticPaths } from "astro";
+// import { getEntry } from "astro:content";
+//components
+import { Image } from "astro:assets";
+import PostCard from "@/components/ui/PostCard.astro";
+import Heading from "@/components/ui/Heading.astro";
+import Link from "@/components/ui/Link.astro";
+//layout
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// data
+import { getCollection } from "astro:content";
+
+//images
+// assets
+import katie from "@/assets/avatar.jpg";
+
+//get posts
+// filter out isDraft
+
+// show one
+// import { getEntries } from "astro:content";
+// const postEntry = await getEntry("posts", "five-challenges-to-frontend-web-development")
+
+export const getStaticPaths = (async ({paginate}) => {
+    const allPosts = await getCollection("posts", ({data}) => !data.isDraft);
+    return paginate(allPosts.sort((a,b) => new Date(b.data.pubDate).getUTCDate() - new Date(a.data.pubDate).getUTCDate()), {
+        pageSize: 2,
+    });
+}) satisfies GetStaticPaths;
+
+const {page} = Astro.props;
+
+---
+
+<BaseLayout title=`my writings | page ${page.currentPage}` description="fancy ass page">
+    <section aria-label="blog-posts">
+        <div class="blog-wrapper">
+            <div class="columns">adfasdf
+                <Image
+                    src={katie}
+                    alt="Katie Hause"
+                    width={140}
+                    class="avatar"/>
+                    <div class="rows">
+                        <div class="columns">
+                            <Heading tagName="h1" size="h2">My writings</Heading>
+                            <p class="uppercase text-accent">Page {page.currentPage}</p>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit nam doloremque vel architecto adipisci recusandae quod, dolores rerum ut corrupti!</p>
+                    </div>
+            </div>
+            <div class="grid-wrapper">
+                {
+                    page.data.map((post) =>
+                        <PostCard post={post}></PostCard>
+                    )
+                }
+            </div>
+            <div class="pagination">
+                {
+                    page.url.prev &&(
+                        <Link href={page.url.prev} variant="badge">Previous</Link>
+                    )
+           
+                }
+                {
+                    page.url.next &&(
+                        <Link href={page.url.next} variant="badge">Next</Link>
+                    )
+                }
+            </div>
+        </div>
+    </section>
+    
+</BaseLayout>
